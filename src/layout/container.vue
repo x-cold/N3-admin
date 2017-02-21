@@ -1,10 +1,10 @@
 <template>
   <n3-row class="container">
     <n3-column :col="12">
-      <n3-column :style="{minHeight: screenHeight}" class="navbar-left" :col="1">
+      <n3-column :style="{minHeight: screenHeight}" class="navbar-left" :col="2">
         <app-navbar></app-navbar>
       </n3-column>
-      <n3-column :col="11">
+      <n3-column :col="10">
         <level-bar></level-bar>
         <router-view></router-view>
       </n3-column>

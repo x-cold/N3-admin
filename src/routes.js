@@ -1,5 +1,6 @@
-import Login from './views/Login.vue'
-import Info from './views/Info.vue'
+import Login from './views/Login'
+import Info from './views/Info'
+import Layout from './layout'
 
 const routes = [
   {
@@ -12,6 +13,7 @@ const routes = [
     path: '/user',
     name: '用户管理',
     label: '用户管理',
+    component: Layout,
     menu: true,
     redirect: '/user/list',
     children: [
@@ -33,6 +35,7 @@ const routes = [
     path: '/order',
     name: '订单管理',
     label: '订单管理',
+    component: Layout,
     menu: true,
     redirect: '/order/list',
     children: [
@@ -54,6 +57,7 @@ const routes = [
     path: '/notice',
     name: '公告管理',
     label: '公告管理',
+    component: Layout,
     menu: true,
     redirect: '/notice/list',
     children: [
@@ -69,6 +73,7 @@ const routes = [
     path: '/goods',
     name: '商品管理',
     label: '订单管理',
+    component: Layout,
     menu: true,
     redirect: '/goods/list',
     children: [
