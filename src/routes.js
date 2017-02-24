@@ -1,5 +1,7 @@
-import Login from './views/Login'
-import Info from './views/Info'
+import Login from './views/login'
+import Info from './views/info'
+import TableIndex from './views/table'
+
 import Layout from './layout'
 
 const routes = [
@@ -10,24 +12,24 @@ const routes = [
     hidden: true
   },
   {
-    path: '/user',
-    name: '用户管理',
-    label: '用户管理',
+    path: '/table',
+    name: '数据表格',
+    label: '数据表格',
     component: Layout,
     menu: true,
-    redirect: '/user/list',
+    redirect: '/table/list',
     children: [
       {
-        path: '/user/list',
-        component: Info,
-        name: '用户列表',
-        label: '用户列表'
+        path: '/table/list',
+        component: TableIndex,
+        name: '基本表格',
+        label: '基本表格'
       },
       {
-        path: '/user/advise',
+        path: '/table/advance',
         component: Info,
-        name: '用户意见',
-        label: '用户意见'
+        name: '更多案例',
+        label: '更多案例'
       }
     ]
   },
@@ -93,7 +95,7 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/user/list'
+    redirect: '/table/list'
   }
 ]
 

@@ -2,7 +2,7 @@
   <n3-row class="header">
     <n3-column :col="12">
       <n3-column :col="10" style="font-size: 26px;">
-        <img src="../assets/logo.png" class="logo"> <span>ADMIN</span>
+        <img src="../assets/logo.png" class="logo"> <span>N3-Admin</span>
       </n3-column>
       <n3-column :col="2">
         <div class="logout">
@@ -19,7 +19,7 @@
   export default {
     methods: {
       logout () {
-
+        this.$router.push('/login')
       }
     }
   }

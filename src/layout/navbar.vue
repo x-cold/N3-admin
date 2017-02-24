@@ -1,5 +1,5 @@
 <template>
-  <section class="navbar-box">
+  <section class="app-navbar">
     <div class="welcome-box">
       <span class="username">您好，{{$store.state.user.userinfo.username}}</span>
     </div>
@@ -72,16 +72,17 @@
   }
 </script>
 
-<style>
-  .welcome-box {
-    padding: 12px 0;
-    text-align: center;
-    border-bottom: 1px solid #efefef;
+<style lang="less">
+  .app-navbar {
+    z-index: 9999;
+    .welcome-box {
+      padding: 12px 0;
+      text-align: center;
+      border-bottom: 1px solid #efefef;
+    }
+    .n3-dropdown-menu > li {
+      padding: 4px 12px !important;
+    }
   }
-</style>
 
-<style scoped>
-  .n3-dropdown-menu > li {
-    padding: 4px 12px !important;
-  }
 </style>

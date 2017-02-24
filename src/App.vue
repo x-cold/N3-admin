@@ -30,3 +30,7 @@
 <style>
   @import './assets/styles/base.css';
 </style>
+
+<style lang="less">
+  @import './assets/styles/transition.less';
+</style>
