@@ -1,9 +1,9 @@
 {
-  "name": "market-mobile",
+  "name": "N3-Admin",
   "version": "1.0.0",
   "description": "market frontend",
   "author": "x-cold <lxstart@outlook.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
