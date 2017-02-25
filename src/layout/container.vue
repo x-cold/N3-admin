@@ -42,18 +42,17 @@
       bottom: 0px;
       overflow: hidden;
     }
-     .navbar-left {
+    .navbar-left {
       background: #fff;
       border-right: 1px solid #efefef;
       box-shadow: 1px 0 4px 0px hsla(0, 0%, 7%, .1)
     }
-  }
-
-  .router-view {
-    padding: 12px 8px;
-    width: 100%;
-    animation-duration: .5s;
-    animation-fill-mode: both;
-    backface-visibility: hidden;
+    .router-view {
+      padding: 12px 8px;
+      width: 100%;
+      animation-duration: .5s;
+      animation-fill-mode: both;
+      backface-visibility: hidden;
+    }
   }
 </style>

@@ -1,16 +1,17 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
-import routes from './routes'
 import VueRouter from 'vue-router'
-import store from './vuex'
-import axios from './axios'
 import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
 import N3 from 'N3-components'
 
-Vue.use(N3)
+import App from './App'
+import routes from './routes'
+import store from './vuex'
+import axios from './axios'
+
+import './assets/styles/base.css'
+import 'nprogress/nprogress.css'
 
 const router = new VueRouter({
   routes
@@ -27,6 +28,7 @@ router.afterEach(transition => {
 
 Vue.use(VueRouter)
 Vue.use(axios)
+Vue.use(N3)
 
 /* eslint-disable no-new */
 new Vue({
