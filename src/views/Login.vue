@@ -70,6 +70,7 @@
     border-radius: 12px;
     opacity: .75;
     h3 {
+      padding: 12px 0;
       font-weight: bold;
       font-size: 22px;
       text-align: center;
