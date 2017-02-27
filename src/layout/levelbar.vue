@@ -40,7 +40,7 @@
   }
 </script>
 
-<style lnag="less">
+<style lang="less">
   .app-levelbar {
     background: #fff;
     border-bottom: 1px solid #dedede;
