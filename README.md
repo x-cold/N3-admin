@@ -10,4 +10,4 @@ vue / vuex / N3 / vue-router / axios v2
 效果图
 ---
 
-![首页图](./imgs/N3-Admin.png)
+![首页图](https://github.com/N3-components/N3-admin/blob/master/imgs/N3-Admin.png)

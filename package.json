@@ -1,6 +1,6 @@
 {
   "name": "N3-Admin",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Admin template bases on N3-components",
   "author": "x-cold <lxstart@outlook.com>",
   "private": false,
@@ -11,6 +11,12 @@
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs"
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "src",
+    "dist"
+  ],
   "dependencies": {
     "mint-ui": "^2.1.0",
     "vue": "^2.1.0",
