@@ -1,9 +1,9 @@
 <template>
-  <n3-container fluid>
+  <div class="app-layout"> 
     <app-header></app-header>
     <app-container></app-container>
     <!--<app-footer></app-footer>-->
-  </n3-container>
+  </div>
 </template>
 
 <script>

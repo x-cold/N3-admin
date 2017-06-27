@@ -1,201 +1,237 @@
 <template>
-  <div class="user-list">
-    <n3-data-table 
-      fixed-columns
+  <section class="history-list">
+    <div class="search-bar">
+      <div class="search-item">
+        <div class="form-item">
+          <label for="">用&nbsp;户&nbsp;I&nbsp;D：</label>
+          <n3-input v-model="searchKey.userId" @change="searchChange"></n3-input>
+        </div>
+        <div class="form-item">
+          <label for="">查询结果：</label>
+          <n3-select v-model="searchKey.queryResult" @change="searchChange">
+            <n3-option value="">不限</n3-option>
+            <n3-option value="1">成功</n3-option>
+            <n3-option value="0">失败</n3-option>
+          </n3-select>
+        </div>
+      </div>
+      <div class="search-item">
+        <div class="form-item">
+          <label for="">开始时间： </label>
+          <n3-datepicker
+            :rules="[{type:'required'}]"
+            v-model="searchKey.startDate"
+            format="yyyy-MM-dd"
+            @change="searchChange"
+          >
+          </n3-datepicker>
+        </div>
+        <div class="form-item">
+          <label for="">结束时间：</label>
+          <n3-datepicker
+            :rules="[{type:'required'}]"
+            v-model="searchKey.endDate"
+            format="yyyy-MM-dd"
+            @change="searchChange"
+          >
+          </n3-datepicker>
+        </div>
+      </div>
+      <div class="search-submit">
+        <n3-button type="primary" block @click.native="searchRecord">搜索</n3-button>
+      </div>
+    </div>
+    <n3-data-table
       :selection="selection"
       :source="source"
       :columns="columns"
+      :filter="false"
+      :search="false"
+      :page="false"
+      :select-col="false"
+      :loading="loading"
+      responsive
     >
     </n3-data-table>
-  </div>
+    <n3-page
+      :total="pagination.total"
+      :pagesize="pagination.pagesize"
+      :show-total="true"
+      v-model="pagination.current"
+      @change="pageChange"
+    >
+    </n3-page>
+  </section>
 </template>
-
 <script>
-export default {
-  methods: {
-    change (p, q, s, f) {
-      console.log(p, q, s, f)
-    },
-    refresh () {
-      this.source = [{
-        key: '小白',
-        name: '小白',
-        age: 25,
-        department: '技术1'
-      }, {
-        key: '2',
-        name: '33',
-        age: 33,
-        department: '技术2'
-      }, {
-        key: '3',
-        name: '44',
-        age: 12,
-        department: '技术3'
-      }, {
-        key: '4',
-        name: '55',
-        age: 25,
-        department: '技术1'
-      }, {
-        key: '5',
-        name: 'l66黑',
-        age: 33,
-        department: '技术2'
-      }, {
-        key: '61',
-        name: 'i红6',
-        age: 122,
-        department: '技术3'
-      }, {
-        key: '73',
-        name: 'yd白',
-        age: 2,
-        department: '技术1'
-      }, {
-        key: '81',
-        name: 'b黑',
-        age: 332,
-        department: '技术2'
-      }]
-    },
-    del (key) {
-      for (var i in this.source) {
-        if (key === this.source[i]['key']) {
-          this.source.splice(i, 1)
-        }
-      }
-    }
-  },
+  import API from '../../api'
+  import qs from 'qs'
+  import { dateFormat } from '../../utils'
 
-  data () {
-    return {
-      selection: {
-        checkRows: [],
-        onSelect (record, checked, checkRows) {},
-        onSelectAll (checked, checkRows, changeRows) {},
-        getCheckboxProps (record) {
-          if (record.key == 2) {
+  export default {
+    data() {
+      return {
+        loading: false,
+        searchChanged: false,
+        searchKey: {
+          userId: '',
+          queryResult: '',
+          startDate: '',
+          endDate: ''
+        },
+        selection: {
+          checkRows: [],
+          onSelect (record, checked, checkRows) {},
+          onSelectAll (checked, checkRows, changeRows) {},
+          getCheckboxProps (record) {
             return {
-              checked: true,
+              checked: false,
               disabled: true
             }
-          } else {
-            return {
-              disabled: false
+          }
+        },
+        pagination: {
+          current: 1,
+          total: 0,
+          pagesize: 20
+        },
+        columns: [
+          {
+            title: 'ID',
+            dataIndex: 'queryRecordId',
+            width: '100px',
+            render: text => Date.now()
+          }, {
+            title: '操作时间',
+            dataIndex: 'queryDate',
+            width: '160px',
+            render: (text, record, index) => {
+              return `<div>{{'${text}' | toDateTime}}</div>`
+            }
+          }, {
+            title: '操作用户',
+            dataIndex: 'userId',
+            width: '120px',
+            render: (text, record, index) => {
+              text = '测试用户'
+              return `<router-link to="/user/${text}" target="_blank">
+                        ${text}
+                      </router-link>`
+            }
+          }, {
+            title: 'IP',
+            dataIndex: 'ipAddress',
+            width: '160px',
+            render: text => {
+              return text || '127.0.0.1'
+            }
+          }, 
+          {
+            title: '类型',
+            dataIndex: 'queryType',
+            width: '40px',
+            render: (text) => {
+              if (text == 2) {
+                return `<span>普通</span>`
+              }
+              return `<span style="color: red;">实时</span>`
+            }
+          }, {
+            title: '耗时(ms)',
+            dataIndex: 'timeConsuming',
+            width: '100px'
+          }, {
+            title: '操作',
+            dataIndex: 'queryRecordId',
+            width: '120px',
+            render: (text, record, index) => {
+              let type = 'primary'
+              if (!record.queryResult) {
+                type = 'warning'
+              }
+              return `<router-link to="/record/${text}" target="_blank">
+                        <n3-label type="${type}">详情</n3-label>
+                      </router-link>`
             }
           }
-        }
+        ],
+        source: []
+      }
+    },
+    methods: {
+      pageChange(page) {
+        this.pagination.current = page
+        this.searchRecord()
       },
-      loading: false,
-      pagination: {
-        current: 1,
-        total: 10,
-        pagesize: 10
+      searchChange () {
+        this.searchChanged = true
       },
-      filterList: [{
-        title: '姓名',
-        dataIndex: 'name',
-        options: [{value: 'v白', label: 'v白'}, {value: 't红', label: 't红'}],
-      }],
-      columns: [{
-        title: '姓名',
-        dataIndex: 'name',
-        sort: true,
-        width: '100px',
-        filter: true
-      }, {
-        title: '年龄',
-        dataIndex: 'age',
-        sort: true,
-        sortType: 'DESC',
-        sortMethod (x, y) { return x.age - y.age },
-        filter: true,
-        width: '150px',
-        render: (text, record) => {
-          return `<a href="javascript:;">${text}</a>`
+      searchRecord () {
+        if (this.searchChanged) {
+          this.pagination.current = 1
+          this.searchChanged = false
         }
-      }, {
-        title: '部门',
-        dataIndex: 'department',
-        width: '250px'
-      }, {
-        title: '操作',
-        dataIndex: '',
-        render: (text, record, index) => {
-          return `<span class="item">
-                    <a href="javascript:;" @click="del('${record.key}','${index}')" style="color:#41cac0">删除</a>
-                  </span>`
+        let params = Object.assign({}, this.searchKey, {
+          page: this.pagination.current
+        })
+        if (params.queryResult === 1) {
+          params.queryResult = true
         }
-      }],
-      source: [{
-        key: '1',
-        name: '小白',
-        age: 25,
-        department: '技术1'
-      }, {
-        key: '2',
-        name: '小黑',
-        age: 33,
-        department: '技术2'
-      }, {
-        key: '3',
-        name: '小红',
-        age: 12,
-        department: '技术3'
-      }, {
-        key: '4',
-        name: 'v白',
-        age: 25,
-        department: '技术1'
-      }, {
-        key: '5',
-        name: 'l黑',
-        age: 33,
-        department: '技术2'
-      }, {
-        key: '6',
-        name: 'i红',
-        age: 122,
-        department: '技术3'
-      }, {
-        key: '7',
-        name: 'y白',
-        age: 2,
-        department: '技术1'
-      }, {
-        key: '8',
-        name: 'b黑',
-        age: 332,
-        department: '技术2'
-      }, {
-        key: '9',
-        name: 't红',
-        age: 124,
-        department: '技术3'
-      }, {
-        key: '10',
-        name: 'f白',
-        age: 253,
-        department: '技术1'
-      }, {
-        key: '11',
-        name: 'a黑',
-        age: 31,
-        department: '技术2'
-      }, {
-        key: '12',
-        name: 'd红',
-        age: 31,
-        department: '技术3'
-      }]
+        if (params.queryResult === 0) {
+          params.queryResult = false
+        }
+        Object.keys(params).forEach(key => {
+          let item = params[key]
+          if (item === '' || typeof item === 'undefined') {
+            delete params[key]
+          }
+        })
+        let url = API.RECORD_LIST
+        if (Object.keys(params).length < 2) {
+          url = API.QUERY_LIST
+        }
+        this.loading = true
+        this.$http.get(url, {
+          params
+        }).then(data => {
+          this.source = data.result.data || []
+          this.pagination.total = data.result.total || 0
+          this.loading = false
+        }).catch(error => {
+          this.loading = false
+          this.n3Alert({
+            content: error || '加载失败，请刷新试试~',
+            type: 'danger',
+            placement: 'top-right',
+            duration: 2000,
+            width: '240px' // 内容不确定，建议设置width
+          })
+        })
+      },
+      reload () {
+        this.pagination.current = 1
+        this.searchRecord()
+      }
+    },
+    watch: {
+      '$route' () {
+        if (this.$route.name == 'normalTable') {
+          this.reload()
+        }
+      }
+    },
+    created () {
+      this.reload()
     }
   }
-}
 </script>
 
-<style>
-  .user-list {
-    background: #fff;
+<style lang="less">
+  @import "../../style/define.less";
+  .history-list {
+    td a {
+      color: @primaryColor;
+    }
   }
 </style>
+

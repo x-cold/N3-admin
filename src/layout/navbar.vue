@@ -1,28 +1,36 @@
 <template>
   <section class="app-navbar">
-    <div class="welcome-box">
-      <span class="username">您好，{{$store.state.user.userinfo.username}}</span>
-    </div>
-    <n3-nav type="vertical">
-      <n3-nav-item v-for="(item, index) in list">
-        <n3-sub-nav :show="item.show" @toggle="handleToggle(item)">
-          <a slot="title" style="color:#333" v-text="item.label"></a>
-          <n3-nav-item v-for="i in item.list" :active="$route.name == i.value" @click.native="change(i.value)">
-            <a v-text="i.label"></a>
-          </n3-nav-item>
-        </n3-sub-nav>
-      </n3-nav-item>
+    <n3-nav class="nav-box" :default-active="$route.path" theme="light" :style="{ width: '180px', maxHeight: navHeight }" :default-openeds="openedIndexList" router>
+      <n3-sub-nav v-for="(item, index) in list" :index="item.path">
+        <template slot="title"><n3-icon :type="item.icon || 'bars'"></n3-icon>{{item.label}}</template>
+        <n3-nav-item v-for="(i, subIndex) in item.list" :index="i.path" :key="i.path">{{i.label}}</n3-nav-item>
+      </n3-sub-nav>
     </n3-nav>
   </section>
 </template>
 
 <script>
-  import routes from '../routes'
+  import routes from '../router/routes'
 
   export default {
     data () {
       return {
         list: []
+      }
+    },
+    computed: {
+      openedIndexList() {
+        let len = this.list.length || 0
+        let indexList = []
+
+        for (let i = 0; i < len; i++) {
+          indexList.push(this.list[i].path)
+        }
+
+        return indexList
+      },
+      navHeight() {
+        return window.innerHeight - 68 - 48 + 'px'
       }
     },
     methods: {
@@ -34,30 +42,32 @@
           name: value
         })
       },
-      // 创建菜单栏数据
       initMenu () {
         let list = []
         routes.forEach(item => {
-          if (!item.menu) {
+          if (item.menu === false || !item.name) {
             return
           }
-          let children = item.children
+          let children = item.children || []
           let  childList = []
+
           children.forEach(child => {
-            if (!child.name) {
+            if (!child.name || child.menu === false) {
               return
             }
             childList.push({
-              label: child.label,
+              label: child.meta && child.meta.label || child.name,
               value: child.name,
+              path: child.path,
               icon: child.icon || ''
             })
           })
           
           let menuItem = {
             show: true,
-            label: item.label,
+            label: item.meta && item.meta.label || item.name,
             icon: item.icon,
+            path: item.path,
             list: childList
           }
 
@@ -79,6 +89,9 @@
       padding: 12px 0;
       text-align: center;
       border-bottom: 1px solid #efefef;
+    }
+    .nav-box {
+      overflow: auto;
     }
     .n3-dropdown-menu > li {
       padding: 4px 12px !important;

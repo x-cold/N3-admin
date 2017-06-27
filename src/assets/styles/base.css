@@ -48,8 +48,16 @@ table {
   border-spacing: 0
 }
 
+a {
+  color: #5e5e5e;
+  text-decoration: none
+}
+
+a:hover {
+  text-decoration: none
+}
+
 * {
-  -webkit-user-select: none;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-touch-callout: none;
   -webkit-box-sizing: border-box;
@@ -72,39 +80,12 @@ body {
   -webkit-text-size-adjust: none
 }
 
-a {
-  color: #5e5e5e;
-  text-decoration: none
-}
-
-a:hover {
-  text-decoration: none
-}
-
-.glare {
-  color: #ee4566
-}
-
-.highlight {
-  color: #f5342f
-}
-
 .fl {
   float: left !important
 }
 
 .fr {
   float: right !important
-}
-
-.r3 {
-  -webkit-border-radius: 3px;
-  border-radius: 3px
-}
-
-.r50 {
-  -webkit-border-radius: 50%;
-  border-radius: 50%
 }
 
 .hide {
@@ -114,10 +95,6 @@ a:hover {
 
 .show {
   display: block!important
-}
-
-.userselect {
-  -webkit-user-select: text
 }
 
 .clearfix:after {
