@@ -28,9 +28,13 @@
   .app-header {
     height: 60px;
     line-height: 60px;
-    background: #1F2D3D;
+    background: #fff;
     color: #c0ccda;
     display: flex;
+    position: fixed;
+    width:100%;
+    z-index:3;
+    box-shadow: 0px 0px 10px #f9f9f9;
     .fixed {
       position: absolute;
       top: 0px;
