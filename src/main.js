@@ -4,7 +4,7 @@ import 'es6-shim'
 
 import Vue from 'vue'
 import N3 from 'N3-components'
-
+import 'N3-components/dist/index.min.css'
 import axios from './utils/axios'
 import extend from './extend'
 
@@ -17,7 +17,7 @@ import router from './router'
 import store from './store'
 import './assets/styles/base.css'
 
-/* eslint-disable no-new */
+/* eslint-disable */
 new Vue({
   el: '#app',
   template: '<App />',
@@ -25,3 +25,4 @@ new Vue({
   router,
   store
 })
+/* eslint-enable */

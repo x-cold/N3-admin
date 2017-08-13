@@ -2,7 +2,7 @@
   <section class="app-levelbar clearfix">
     <h4 class="router-name fl">{{label}}</h4>
     <n3-breadcrumb class="breadcrumb fr">
-      <n3-breadcrumb-item v-for="(item, index) in list" :active="index == list.length - 1">
+      <n3-breadcrumb-item v-for="(item, index) in list" :active="index == list.length - 1" :key="item.id">
         <router-link :to="item.path">
           {{item.meta && item.meta.label || item.name}}
         </router-link>
