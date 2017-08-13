@@ -18,7 +18,7 @@ const routes = [
     // 异步载入组件
     component: function (resolve, reject) {
       require.ensure([], function (require) {
-          let comm = require('../views/test/query');
+          let comm = require('../views/test/query')
           resolve(comm)
       })
     },
