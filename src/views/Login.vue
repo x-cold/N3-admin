@@ -235,7 +235,7 @@
             if (this.$route.query.back) {
                this.$router.replace(this.$route.query.back)
             } else {
-              this.$router.replace('/user/list')
+              this.$router.replace('/form')
             }
           })
           .catch(error => {

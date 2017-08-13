@@ -33,17 +33,16 @@
 
 <style lang="less">
   .app-container {
-    padding: 6px 0;
+    padding: 8px 0;
     width: 100%;
     display: flex;
     .navbar-left {
       z-index: 2;
       overflow: auto;
-      margin-right: 4px;
-      width: 200px;
+      margin-right: 8px;
       background: #fff;
       border-right: 1px solid #efefef;
-      box-shadow: 1px 0 4px 0px hsla(0, 0%, 7%, .1)
+      box-shadow: 1px 0 4px 0px hsla(0, 0%, 7%, .1);
     }
     .router-view-box {
       overflow: auto;
@@ -56,6 +55,7 @@
       animation-duration: .5s;
       animation-fill-mode: both;
       backface-visibility: hidden;
+      box-shadow: 0 1px 4px 0px hsla(0, 0%, 7%, .1)
     }
   }
 </style>
