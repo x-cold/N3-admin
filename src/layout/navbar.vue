@@ -1,7 +1,7 @@
 <template>
   <section class="app-navbar">
     <n3-nav class="nav-box" :default-active="$route.path" theme="light" :style="{ width: '180px', maxHeight: navHeight }" :default-openeds="openedIndexList" router>
-      <n3-sub-nav v-for="(item, index) in list" :index="item.path">
+      <n3-sub-nav v-for="(item, index) in list" :index="item.path" :key="item.id">
         <template slot="title"><n3-icon :type="item.icon || 'bars'"></n3-icon>{{item.label}}</template>
         <n3-nav-item v-for="(i, subIndex) in item.list" :index="i.path" :key="i.path">{{i.label}}</n3-nav-item>
       </n3-sub-nav>
