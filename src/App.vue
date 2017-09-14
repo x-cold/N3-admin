@@ -138,7 +138,9 @@
    */
   .search-bar {
     .search-item {
-      padding: 4px 8px;
+      .form-item {
+        padding: 4px 8px;
+      }
     }
     .form-item {
       margin-right: 32px;
