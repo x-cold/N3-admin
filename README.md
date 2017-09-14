@@ -16,6 +16,7 @@ vue / vuex / vue-router / N3 /axios
   * [x] eslint
   * [x] babel
   * [x] webpack 2.x
+  * [x] 组件库样式hook
 + [x] vue
   * [x] 组件分级 [路由级组件、复用型组件、基础组件(N3)]
   * [x] Vue扩展 [filters、directives等]
