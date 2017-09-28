@@ -1,6 +1,6 @@
 # N3-admin
 
-vue / vuex / vue-router / N3 /axios
+vue / vuex / vue-router / N3-components /axios
 
 简述
 ---
