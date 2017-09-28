@@ -1,4 +1,4 @@
-import Login from '../views/login'
+import Login from '../views/Login'
 import CommonLayout from '../layout'
 
 import NormalForm from '../views/form'
