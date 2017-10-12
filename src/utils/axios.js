@@ -6,7 +6,12 @@ import API from '../api'
 import {
   MSG
 } from './const'
-
+import {
+  IS_DEV
+} from '../config'
+if (IS_DEV) {
+  require('./mock')
+}
 let http = axios.create({
   baseURL: API.ROOT,
   headers: {
@@ -15,7 +20,7 @@ let http = axios.create({
   withCredentials: false
 })
 
-http.interceptors.request.use(function(config) {
+http.interceptors.request.use((config) => {
   if (config.appendToken === false) { // 无需 TOKEN 注入
     NProgress.start()
     return config
@@ -23,7 +28,7 @@ http.interceptors.request.use(function(config) {
   const token = store.state.user.token
   /**
    * TOKEN 注入
-   * 
+   *
    * 此处直接在 query (GET方法) 或者 form-data (POST PUT DELETE 等方法) 注入session 参数
    * ！实际情况请根据前后端的API规范进行定义
    */
@@ -40,7 +45,7 @@ http.interceptors.request.use(function(config) {
   }
   NProgress.start()
   return config
-}, function(error) {
+}, (error) => {
   return Promise.reject(error)
 })
 
@@ -48,7 +53,7 @@ http.interceptors.response.use(res => {
   NProgress.done()
   /**
    * 响应状态判断
-   * 
+   *
    * 通过 state 进行服务状态的判断
    * 通过 error_message 提取后端提供的错误信息
    * ！实际情况请根据前后端的API规范进行定义
@@ -72,7 +77,7 @@ http.interceptors.response.use(res => {
 })
 
 export default {
-  install() {
+  install () {
     Vue.prototype.$http = http
     Vue.http = http
   }
