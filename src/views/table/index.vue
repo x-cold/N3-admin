@@ -194,6 +194,7 @@
         this.$http.get(url, {
           params
         }).then(data => {
+          console.log(data)
           this.source = data.result.data || []
           this.pagination.total = data.result.total || 0
           this.loading = false
