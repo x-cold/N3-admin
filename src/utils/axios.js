@@ -9,9 +9,9 @@ import {
 import {
   IS_DEV
 } from '../config'
-if (IS_DEV) {
+// if (IS_DEV) {
   require('./mock')
-}
+// }
 let http = axios.create({
   baseURL: API.ROOT,
   headers: {
