@@ -9,7 +9,7 @@ import routes from './routes'
 
 const router = new VueRouter({
   mode: 'history',
-  root: '.',
+  root: 'N3-admin/',
   routes
 })
 
