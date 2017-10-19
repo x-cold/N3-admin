@@ -8,8 +8,8 @@ Vue.use(VueRouter)
 import routes from './routes'
 
 const router = new VueRouter({
-  mode: 'history',
-  root: 'N3-admin/',
+  // mode: 'history',
+  // root: 'N3-admin/',
   routes
 })
 

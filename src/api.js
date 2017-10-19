@@ -3,7 +3,8 @@ import {
 } from './config'
 
 const API = {
-  ROOT: IS_DEV ? '/api' : 'http://abc.com/api',
+  // ROOT: IS_DEV ? '/api' : 'http://abc.com/api',
+  ROOT: '/api',
 
   USER_LOGIN: '/user/login',
   USER_ADD: '/user/add',

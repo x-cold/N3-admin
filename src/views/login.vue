@@ -235,7 +235,9 @@
             if (this.$route.query.back) {
                this.$router.replace(this.$route.query.back)
             } else {
-              this.$router.replace('/form')
+              this.$router.replace({
+                name: 'form'
+              })
             }
           })
           .catch(error => {
